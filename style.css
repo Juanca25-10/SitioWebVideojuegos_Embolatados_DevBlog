@@ -51,12 +51,16 @@ body {
     font-size: 1.2rem;
     padding: 5px 15px;
     background: var(--border-color);
-    transition: all 0.2s;
 }
 
 .brutal-nav a:hover {
     background: var(--accent-1);
     color: #000;
+}
+
+.brutal-nav a:focus-visible {
+    outline: 2px solid var(--accent-1);
+    outline-offset: 4px;
 }
 
 /* Contenedor principal */
@@ -76,6 +80,36 @@ main {
     position: relative;
 }
 
+.brutal-box.reveal-on-scroll {
+    opacity: 0;
+}
+
+.brutal-box.reveal-on-scroll.is-visible {
+    animation: card-drop-in 0.72s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes card-drop-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-24px) rotate(1.4deg) scale(0.97);
+    }
+
+    62% {
+        opacity: 1;
+        transform: translateY(5px) rotate(-0.5deg) scale(1.01);
+    }
+
+    82% {
+        transform: translateY(-2px) rotate(0.2deg) scale(1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0) scale(1);
+    }
+}
+
 .brutal-box h2 {
     background: var(--border-color);
     color: #fff;
@@ -92,6 +126,101 @@ img {
     border: var(--border-width) solid var(--border-color);
     display: block;
     margin: 20px 0;
+}
+
+.evidence-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 10px 0 18px;
+}
+
+.evidence-row--pair {
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.evidence-image-button {
+    display: block;
+    flex: 0 0 auto;
+    width: clamp(125px, 24vw, 210px);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+.evidence-image-button img {
+    width: 100%;
+    margin: 0;
+}
+
+.evidence-video {
+    display: block;
+    flex: 0 1 auto;
+    width: clamp(125px, 24vw, 210px);
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+    object-fit: cover;
+    border: var(--border-width) solid var(--border-color);
+}
+
+.evidence-hint {
+    max-width: 175px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--accent-1);
+    font-weight: 700;
+}
+
+.evidence-image-button:focus-visible,
+.evidence-dialog-close:focus-visible {
+    outline: 3px solid var(--accent-2);
+    outline-offset: 4px;
+}
+
+.evidence-dialog {
+    position: fixed;
+    inset: 0;
+    width: fit-content;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    margin: auto;
+    padding: 42px 12px 12px;
+    overflow: visible;
+    background: #111;
+    border: 4px solid var(--border-color);
+    box-shadow: 8px 8px 0 var(--border-color);
+}
+
+.evidence-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.82);
+}
+
+.evidence-dialog img {
+    max-width: calc(100vw - 64px);
+    max-height: calc(100vh - 96px);
+    width: auto;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.evidence-dialog-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    background: var(--bg-color);
+    color: var(--border-color);
+    box-shadow: 3px 3px 0 #fff;
+    font: bold 1.6rem/1 'Space Mono', monospace;
+    cursor: pointer;
 }
 
 /* Estilos específicos para la bitácora (Acordeones/Entradas) */
@@ -132,4 +261,24 @@ ul.cambios {
     padding: 5px 10px;
     font-weight: bold;
     transform: rotate(15deg);
+}
+
+@media (max-width: 480px) {
+    .evidence-row {
+        gap: 12px;
+    }
+
+    .evidence-hint {
+        font-size: 0.8rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brutal-box.reveal-on-scroll {
+        opacity: 1;
+    }
+
+    .brutal-box.reveal-on-scroll.is-visible {
+        animation: none;
+    }
 }

@@ -18,8 +18,13 @@
       "preguntas": {
         "que_probar": "Queríamos comprobar si el jugador entendía cómo usar el entorno (góndolas) para esconderse del Vigilante y cómo navegar usando referencias visuales.",
         "que_implementamos": "Movimiento del jugador, un mapa básico modular con cajas, el cono de visión del Vigilante (IA simple) y la mecánica de agacharse.",
-        "evidencia": "https://via.placeholder.com/500x300/ff5555/000000?text=GIF_EVIDENCIA_GRAYBOX",
-        "que_descubrimos": "El jugador entiende cómo esconderse, pero los pasillos son demasiado estrechos, lo que hace casi imposible esquivar al Vigilante si te ve de frente.",
+        "detalle_trampa": "La primera trampa es un tarrito de gasolina que se puede lanzar en los pasillos. Si el Vigilante pasa por encima, queda aturdido por un momento.",
+        "evidencia": "public/iimg/trampa-gasolina.png",
+        "alt_evidencia": "Tarrito de gasolina que funciona como trampa para aturdir al Vigilante en los pasillos.",
+        "evidencia_pasillo": "public/iimg/pasillo-trampas.png",
+        "alt_evidencia_pasillo": "Pasillo modular del supermercado con varias trampas de gasolina listas para usar.",
+        "video_vigilante": "public/iimg/vigilante-trampa-loop.mp4",
+        "que_descubrimos": "El jugador entiende cómo esconderse. La trampa aturde al Vigilante correctamente al pasar por encima y no presentó problemas durante la prueba. También descubrimos que los pasillos son demasiado estrechos, lo que hace casi imposible esquivar al Vigilante si te ve de frente.",
         "que_cambiaremos": [
           "Ampliar el ancho de los pasillos principales en un 20%.",
           "Agregar un indicador visual (signo de exclamación) cuando el Vigilante detecta al jugador.",

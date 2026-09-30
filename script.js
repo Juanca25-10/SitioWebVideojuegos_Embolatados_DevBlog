@@ -43,7 +43,7 @@ function renderizarPagina(data) {
             <h2>Desarrollo / Bitácora</h2>
     `;
     
-    data.bitacora.forEach(entrada => {
+    data.bitacora.forEach((entrada, index) => {
         let listaCambios = entrada.preguntas.que_cambiaremos.map(cambio => `<li>${cambio}</li>`).join('');
         
         htmlContent += `
@@ -56,8 +56,23 @@ function renderizarPagina(data) {
                 <p class="pregunta">2. ¿Qué implementamos?</p>
                 <p>${entrada.preguntas.que_implementamos}</p>
 
+                ${entrada.preguntas.detalle_trampa ? `<p>${entrada.preguntas.detalle_trampa}</p>` : ''}
+
                 <p class="pregunta">3. Evidencia</p>
-                <img src="${entrada.preguntas.evidencia}" alt="Evidencia visual">
+                <div class="evidence-row">
+                    <button class="evidence-image-button" type="button" data-full-image="${entrada.preguntas.evidencia}" data-image-alt="${entrada.preguntas.alt_evidencia || 'Evidencia visual de ' + entrada.semana}" aria-label="Ampliar imagen de evidencia">
+                        <img src="${entrada.preguntas.evidencia}" alt="${entrada.preguntas.alt_evidencia || 'Evidencia visual de ' + entrada.semana}" loading="lazy">
+                    </button>
+                    ${index === 0 ? '<p class="evidence-hint">Presiona la imagen para agrandarla <span aria-hidden="true">↗</span></p>' : ''}
+                </div>
+                ${entrada.preguntas.evidencia_pasillo || entrada.preguntas.video_vigilante ? `
+                    <p class="pregunta">Vigilante y trampa en acción</p>
+                    <p>La captura muestra el pasillo modular con las trampas listas. En el video se ve al Vigilante con su IA simple y cómo queda aturdido al pisar una trampa.</p>
+                    <div class="evidence-row evidence-row--pair">
+                        ${entrada.preguntas.evidencia_pasillo ? `<button class="evidence-image-button" type="button" data-full-image="${entrada.preguntas.evidencia_pasillo}" data-image-alt="${entrada.preguntas.alt_evidencia_pasillo || 'Pasillo del supermercado, ' + entrada.semana}" aria-label="Ampliar imagen del pasillo"><img src="${entrada.preguntas.evidencia_pasillo}" alt="${entrada.preguntas.alt_evidencia_pasillo || 'Pasillo del supermercado, ' + entrada.semana}" loading="lazy"></button>` : ''}
+                        ${entrada.preguntas.video_vigilante ? `<video class="evidence-video" src="${entrada.preguntas.video_vigilante}" autoplay loop muted playsinline controls preload="metadata" aria-label="Vigilante patrullando y quedando aturdido al pisar una trampa"></video>` : ''}
+                    </div>
+                ` : ''}
 
                 <p class="pregunta">4. ¿Qué observamos o descubrimos?</p>
                 <p>${entrada.preguntas.que_descubrimos}</p>
@@ -85,4 +100,48 @@ function renderizarPagina(data) {
     `;
 
     app.innerHTML = htmlContent;
+
+    const imageDialog = document.createElement('dialog');
+    imageDialog.className = 'evidence-dialog';
+    imageDialog.innerHTML = `
+        <button class="evidence-dialog-close" type="button" aria-label="Cerrar imagen ampliada">×</button>
+        <img alt="">
+    `;
+    app.append(imageDialog);
+
+    imageDialog.querySelector('.evidence-dialog-close').addEventListener('click', () => imageDialog.close());
+    imageDialog.addEventListener('click', event => {
+        if (event.target === imageDialog) imageDialog.close();
+    });
+
+    app.querySelectorAll('.evidence-image-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const dialogImage = imageDialog.querySelector('img');
+            dialogImage.src = button.dataset.fullImage;
+            dialogImage.alt = button.dataset.imageAlt;
+            imageDialog.showModal();
+        });
+    });
+
+    const secciones = app.querySelectorAll('.brutal-box');
+
+    if (!('IntersectionObserver' in window)) {
+        secciones.forEach(seccion => seccion.classList.add('is-visible'));
+        return;
+    }
+
+    const observador = new IntersectionObserver((entradas, observer) => {
+        entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+                entrada.target.classList.add('is-visible');
+                observer.unobserve(entrada.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    secciones.forEach((seccion, index) => {
+        seccion.classList.add('reveal-on-scroll');
+        seccion.style.setProperty('--reveal-delay', `${Math.min(index * 85, 340)}ms`);
+        observador.observe(seccion);
+    });
 }
