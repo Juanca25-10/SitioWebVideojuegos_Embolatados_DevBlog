@@ -1,0 +1,135 @@
+:root {
+    --bg-color: #a4d048; /* Verde limón basado en tus imágenes */
+    --box-bg: #f4f4ec;
+    --accent-1: #ff5555; /* Naranja/Rojo */
+    --accent-2: #3b82f6; /* Azul brillante */
+    --border-color: #0d0d0d;
+    --border-width: 4px;
+    --shadow-offset: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Space Mono', monospace;
+    background-color: var(--bg-color);
+    /* Efecto de cuadrícula (Grid) de la primera imagen */
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--border-color);
+    line-height: 1.6;
+    padding-bottom: 50px;
+}
+
+/* Navegación pegajosa */
+.brutal-nav {
+    position: sticky;
+    top: 0;
+    background: var(--border-color);
+    padding: 15px;
+    z-index: 100;
+}
+
+.brutal-nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.brutal-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 5px 15px;
+    background: var(--border-color);
+    transition: all 0.2s;
+}
+
+.brutal-nav a:hover {
+    background: var(--accent-1);
+    color: #000;
+}
+
+/* Contenedor principal */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Estilo de las Cajas (Tarjetas Brutalistas) */
+.brutal-box {
+    background: var(--box-bg);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+    margin-bottom: 50px;
+    padding: 30px;
+    position: relative;
+}
+
+.brutal-box h2 {
+    background: var(--border-color);
+    color: #fff;
+    display: inline-block;
+    padding: 5px 15px;
+    margin-top: -50px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border: var(--border-width) solid var(--border-color);
+}
+
+img {
+    max-width: 100%;
+    border: var(--border-width) solid var(--border-color);
+    display: block;
+    margin: 20px 0;
+}
+
+/* Estilos específicos para la bitácora (Acordeones/Entradas) */
+.entrada-bitacora {
+    background: #fff;
+    border: var(--border-width) solid var(--border-color);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 4px 4px 0px var(--accent-2);
+}
+
+.entrada-bitacora h3 {
+    background: var(--accent-1);
+    padding: 5px 10px;
+    border: 2px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.pregunta {
+    font-weight: bold;
+    margin-top: 15px;
+    color: var(--accent-2);
+    text-transform: uppercase;
+}
+
+ul.cambios {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+/* Detalles extra para parecer stickers/cinta */
+.sticker {
+    position: absolute;
+    top: 10px;
+    right: -20px;
+    background: yellow;
+    border: 3px solid #000;
+    padding: 5px 10px;
+    font-weight: bold;
+    transform: rotate(15deg);
+}

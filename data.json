@@ -1,0 +1,33 @@
+{
+  "juego": {
+    "nombre": "EMBOLATADOS",
+    "descripcion": "Un grupo de niños perdidos explora un inmenso supermercado modular que cambia en cada partida para intentar reencontrarse. Deben comunicarse por walkie-talkies y armar trampas con productos para evadir a los adultos.",
+    "integrantes": ["Camilo Pinzon Mosquera", "Santiago López Gómez", "Juan Camilo López Sinisterra", "Esteban Cifuentes Puentes", "Stiven Mendez Castañeda"],
+    "imagen_provisional": "public\\iimg\\imageEmbo.png"
+  },
+  "concepto": {
+    "premisa": "Niños perdidos en un supermercado laberíntico, evadiendo a los adultos exagerados por su imaginación para llegar al punto de información antes del cierre.",
+    "genero": "Multijugador Cooperativo de Supervivencia y Sigilo Cómico",
+    "objetivo": "Sobrevivir a la desorientación, reagrupar a todo el equipo y llegar juntos al punto de información principal.",
+    "core_loop": "Explorar pasillos modulares → Comunicarse (Walkie-talkie) → Evadir/Distraer adultos (Trampas) → Reagruparse con aliados → Avanzar hacia la meta → Repetir."
+  },
+  "bitacora": [
+    {
+      "semana": "Semana 1",
+      "titulo": "Graybox v0.1 — Core Loop (Movimiento y Sigilo)",
+      "preguntas": {
+        "que_probar": "Queríamos comprobar si el jugador entendía cómo usar el entorno (góndolas) para esconderse del Vigilante y cómo navegar usando referencias visuales.",
+        "que_implementamos": "Movimiento del jugador, un mapa básico modular con cajas, el cono de visión del Vigilante (IA simple) y la mecánica de agacharse.",
+        "evidencia": "https://via.placeholder.com/500x300/ff5555/000000?text=GIF_EVIDENCIA_GRAYBOX",
+        "que_descubrimos": "El jugador entiende cómo esconderse, pero los pasillos son demasiado estrechos, lo que hace casi imposible esquivar al Vigilante si te ve de frente.",
+        "que_cambiaremos": [
+          "Ampliar el ancho de los pasillos principales en un 20%.",
+          "Agregar un indicador visual (signo de exclamación) cuando el Vigilante detecta al jugador.",
+          "Implementar el primer ítem de distracción (lata de duraznos)."
+        ]
+      }
+    }
+  ],
+  "demo": "Actualmente en fase de prototipado Graybox. ¡Pronto habrá un build jugable!",
+  "teaser": "Sección reservada para la Semana 11. Aquí irá el tráiler final del juego."
+}
