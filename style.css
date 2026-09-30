@@ -70,6 +70,40 @@ main {
     padding: 0 20px;
 }
 
+#app {
+    position: relative;
+}
+
+.character-decoration {
+    position: absolute;
+    z-index: 3;
+    display: block;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    border: 0;
+    pointer-events: none;
+}
+
+.character-green {
+    top: 245px;
+    right: -150px;
+    width: 205px;
+}
+
+.character-green img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: 0;
+    transform: scaleX(-1) rotate(-3deg);
+}
+
+#inicio {
+    z-index: 2;
+}
+
 /* Estilo de las Cajas (Tarjetas Brutalistas) */
 .brutal-box {
     background: var(--box-bg);
@@ -87,6 +121,14 @@ main {
 .brutal-box.reveal-on-scroll.is-visible {
     animation: card-drop-in 0.72s cubic-bezier(0.2, 0.8, 0.25, 1) both;
     animation-delay: var(--reveal-delay, 0ms);
+}
+
+.character-decoration.reveal-on-scroll {
+    opacity: 0;
+}
+
+.character-decoration.reveal-on-scroll.is-visible {
+    animation: card-drop-in 0.72s cubic-bezier(0.2, 0.8, 0.25, 1) both;
 }
 
 @keyframes card-drop-in {
@@ -138,6 +180,74 @@ img {
 .evidence-row--pair {
     align-items: flex-start;
     flex-wrap: wrap;
+}
+
+.map-gallery {
+    width: min(100%, 560px);
+    margin: 10px 0 18px;
+}
+
+.map-gallery-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: fit-content;
+    max-width: 100%;
+    cursor: pointer;
+    list-style: none;
+}
+
+.map-gallery-summary::-webkit-details-marker {
+    display: none;
+}
+
+.map-gallery-summary > img {
+    width: auto;
+    max-width: 100%;
+    height: 220px;
+    margin: 0;
+    object-fit: contain;
+    background: #111;
+}
+
+.map-gallery-open-label,
+.map-gallery-close-label {
+    color: var(--accent-1);
+    font-weight: 700;
+}
+
+.map-gallery-close-label,
+.map-gallery[open] .map-gallery-open-label {
+    display: none;
+}
+
+.map-gallery[open] .map-gallery-close-label {
+    display: inline;
+}
+
+.map-gallery-summary:focus-visible,
+.map-gallery-image-button:focus-visible {
+    outline: 3px solid var(--accent-2);
+    outline-offset: 4px;
+}
+
+.map-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.map-gallery-image-button {
+    width: 100%;
+}
+
+.map-gallery-image-button img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    margin: 0;
+    object-fit: cover;
 }
 
 .evidence-image-button {
@@ -273,12 +383,20 @@ ul.cambios {
     }
 }
 
+@media (max-width: 900px) {
+    .character-decoration {
+        display: none;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .brutal-box.reveal-on-scroll {
+    .brutal-box.reveal-on-scroll,
+    .character-decoration.reveal-on-scroll {
         opacity: 1;
     }
 
-    .brutal-box.reveal-on-scroll.is-visible {
+    .brutal-box.reveal-on-scroll.is-visible,
+    .character-decoration.reveal-on-scroll.is-visible {
         animation: none;
     }
 }

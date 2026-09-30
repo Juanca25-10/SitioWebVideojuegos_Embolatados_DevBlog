@@ -17,6 +17,9 @@ function renderizarPagina(data) {
 
     // SECCIÓN 1: INICIO
     htmlContent += `
+        <div class="character-decoration character-green reveal-on-scroll" aria-hidden="true">
+            <img src="public/iimg/personaje-verde.png" alt="">
+        </div>
         <section id="inicio" class="brutal-box">
             <div class="sticker">¡V 0.1!</div>
             <h2>${data.juego.nombre}</h2>
@@ -45,6 +48,25 @@ function renderizarPagina(data) {
     
     data.bitacora.forEach((entrada, index) => {
         let listaCambios = entrada.preguntas.que_cambiaremos.map(cambio => `<li>${cambio}</li>`).join('');
+        const evidenciasMapa = entrada.preguntas.evidencias_mapa || [];
+        const imagenPortadaMapa = evidenciasMapa[0];
+        const galeriaMapa = imagenPortadaMapa ? `
+            <p class="pregunta">Vistas del mapa</p>
+            <details class="map-gallery">
+                <summary class="map-gallery-summary">
+                    <img src="${imagenPortadaMapa.imagen}" alt="${imagenPortadaMapa.alt}" loading="lazy">
+                    <span class="map-gallery-open-label">Ver las otras fotos del mapa <strong aria-hidden="true">+</strong></span>
+                    <span class="map-gallery-close-label">Mostrar solo esta foto <strong aria-hidden="true">−</strong></span>
+                </summary>
+                <div class="map-gallery-grid">
+                    ${evidenciasMapa.slice(1).map(foto => `
+                        <button class="evidence-image-button map-gallery-image-button" type="button" data-full-image="${foto.imagen}" data-image-alt="${foto.alt}" aria-label="Ampliar foto del mapa">
+                            <img src="${foto.imagen}" alt="${foto.alt}" loading="lazy">
+                        </button>
+                    `).join('')}
+                </div>
+            </details>
+        ` : '';
         
         htmlContent += `
             <div class="entrada-bitacora">
@@ -55,22 +77,39 @@ function renderizarPagina(data) {
 
                 <p class="pregunta">2. ¿Qué implementamos?</p>
                 <p>${entrada.preguntas.que_implementamos}</p>
-
-                ${entrada.preguntas.detalle_trampa ? `<p>${entrada.preguntas.detalle_trampa}</p>` : ''}
+                ${galeriaMapa}
 
                 <p class="pregunta">3. Evidencia</p>
-                <div class="evidence-row">
-                    <button class="evidence-image-button" type="button" data-full-image="${entrada.preguntas.evidencia}" data-image-alt="${entrada.preguntas.alt_evidencia || 'Evidencia visual de ' + entrada.semana}" aria-label="Ampliar imagen de evidencia">
-                        <img src="${entrada.preguntas.evidencia}" alt="${entrada.preguntas.alt_evidencia || 'Evidencia visual de ' + entrada.semana}" loading="lazy">
-                    </button>
-                    ${index === 0 ? '<p class="evidence-hint">Presiona la imagen para agrandarla <span aria-hidden="true">↗</span></p>' : ''}
-                </div>
-                ${entrada.preguntas.evidencia_pasillo || entrada.preguntas.video_vigilante ? `
+                ${entrada.preguntas.evidencia ? `
+                    ${entrada.preguntas.detalle_trampa ? `<p class="pregunta">Trampa de gasolina</p><p>${entrada.preguntas.detalle_trampa}</p>` : ''}
+                    <div class="evidence-row">
+                        <button class="evidence-image-button" type="button" data-full-image="${entrada.preguntas.evidencia}" data-image-alt="${entrada.preguntas.alt_evidencia || 'Evidencia visual de ' + entrada.semana}" aria-label="Ampliar imagen de evidencia">
+                            <img src="${entrada.preguntas.evidencia}" alt="${entrada.preguntas.alt_evidencia || 'Evidencia visual de ' + entrada.semana}" loading="lazy">
+                        </button>
+                        ${index === 0 ? '<p class="evidence-hint">Presiona la imagen para agrandarla <span aria-hidden="true">↗</span></p>' : ''}
+                    </div>
+                ` : ''}
+                ${entrada.preguntas.evidencia_pasillo ? `
+                    <p class="pregunta">Pasillo modular y trampas</p>
+                    <p>Esta captura muestra el recorrido del supermercado y la ubicación de varias trampas.</p>
+                    <div class="evidence-row">
+                        <button class="evidence-image-button" type="button" data-full-image="${entrada.preguntas.evidencia_pasillo}" data-image-alt="${entrada.preguntas.alt_evidencia_pasillo || 'Pasillo del supermercado, ' + entrada.semana}" aria-label="Ampliar imagen del pasillo">
+                            <img src="${entrada.preguntas.evidencia_pasillo}" alt="${entrada.preguntas.alt_evidencia_pasillo || 'Pasillo del supermercado, ' + entrada.semana}" loading="lazy">
+                        </button>
+                    </div>
+                ` : ''}
+                ${entrada.preguntas.video_vigilante ? `
                     <p class="pregunta">Vigilante y trampa en acción</p>
-                    <p>La captura muestra el pasillo modular con las trampas listas. En el video se ve al Vigilante con su IA simple y cómo queda aturdido al pisar una trampa.</p>
-                    <div class="evidence-row evidence-row--pair">
-                        ${entrada.preguntas.evidencia_pasillo ? `<button class="evidence-image-button" type="button" data-full-image="${entrada.preguntas.evidencia_pasillo}" data-image-alt="${entrada.preguntas.alt_evidencia_pasillo || 'Pasillo del supermercado, ' + entrada.semana}" aria-label="Ampliar imagen del pasillo"><img src="${entrada.preguntas.evidencia_pasillo}" alt="${entrada.preguntas.alt_evidencia_pasillo || 'Pasillo del supermercado, ' + entrada.semana}" loading="lazy"></button>` : ''}
-                        ${entrada.preguntas.video_vigilante ? `<video class="evidence-video" src="${entrada.preguntas.video_vigilante}" autoplay loop muted playsinline controls preload="metadata" aria-label="Vigilante patrullando y quedando aturdido al pisar una trampa"></video>` : ''}
+                    <p>En este video se ve al Vigilante patrullando con su IA y cómo queda aturdido cuando pisa la trampa.</p>
+                    <div class="evidence-row">
+                        <video class="evidence-video" src="${entrada.preguntas.video_vigilante}" autoplay loop muted playsinline controls preload="metadata" aria-label="Vigilante patrullando y quedando aturdido al pisar una trampa"></video>
+                    </div>
+                ` : ''}
+                ${entrada.preguntas.video_espejos ? `
+                    <p class="pregunta">Espejos para vigilar al Vigilante</p>
+                    <p>${entrada.preguntas.detalle_espejos || 'Los espejos permiten comprobar si el Vigilante nos está siguiendo.'}</p>
+                    <div class="evidence-row">
+                        <video class="evidence-video" src="${entrada.preguntas.video_espejos}" autoplay loop muted controls playsinline preload="metadata" aria-label="Uso de los espejos para comprobar si el Vigilante sigue al jugador"></video>
                     </div>
                 ` : ''}
 
@@ -124,9 +163,11 @@ function renderizarPagina(data) {
     });
 
     const secciones = app.querySelectorAll('.brutal-box');
+    const personaje = app.querySelector('.character-green');
 
     if (!('IntersectionObserver' in window)) {
         secciones.forEach(seccion => seccion.classList.add('is-visible'));
+        personaje?.classList.add('is-visible');
         return;
     }
 
@@ -134,6 +175,7 @@ function renderizarPagina(data) {
         entradas.forEach(entrada => {
             if (entrada.isIntersecting) {
                 entrada.target.classList.add('is-visible');
+                if (entrada.target.id === 'inicio') personaje?.classList.add('is-visible');
                 observer.unobserve(entrada.target);
             }
         });

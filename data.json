@@ -14,17 +14,41 @@
   "bitacora": [
     {
       "semana": "Semana 1",
-      "titulo": "Graybox v0.1 — Core Loop (Movimiento y Sigilo)",
+      "titulo": "Graybox v0.1 — Movimiento, stamina y persecución",
       "preguntas": {
-        "que_probar": "Queríamos comprobar si el jugador entendía cómo usar el entorno (góndolas) para esconderse del Vigilante y cómo navegar usando referencias visuales.",
-        "que_implementamos": "Movimiento del jugador, un mapa básico modular con cajas, el cono de visión del Vigilante (IA simple) y la mecánica de agacharse.",
+        "que_probar": "Queríamos comprobar si el jugador podía correr (sprint) y saltar consumiendo stamina, y si el Vigilante comenzaba a perseguirlo al entrar en su campo de visión. También queríamos evaluar si los espejos permitían saber si nos seguía sin tener que asomarnos directamente.",
+        "que_implementamos": "Movimiento del jugador, un mapa básico modular con cajas, el cono de visión del Vigilante (IA simple), la mecánica de agacharse y espejos para comprobar si el Vigilante nos sigue.",
+        "evidencias_mapa": [
+          {
+            "imagen": "public/iimg/mapa-pasillo-colorido.png",
+            "alt": "Pasillo del supermercado con góndolas modulares de colores en el graybox."
+          },
+          {
+            "imagen": "public/iimg/mapa-pasillo-trampas.png",
+            "alt": "Pasillo largo con góndolas y trampas distribuidas en el prototipo."
+          },
+          {
+            "imagen": "public/iimg/mapa-pasillos-gondolas.png",
+            "alt": "Vista del recorrido entre góndolas modulares del supermercado."
+          },
+          {
+            "imagen": "public/iimg/mapa-vista-cenital.png",
+            "alt": "Vista cenital de la distribución de pasillos y góndolas del mapa."
+          },
+          {
+            "imagen": "public/iimg/mapa-vista-general.png",
+            "alt": "Vista cenital general del mapa modular del supermercado."
+          }
+        ],
+        "detalle_espejos": "Los espejos permiten vigilar al Vigilante a través del reflejo y comprobar si nos está siguiendo.",
         "detalle_trampa": "La primera trampa es un tarrito de gasolina que se puede lanzar en los pasillos. Si el Vigilante pasa por encima, queda aturdido por un momento.",
         "evidencia": "public/iimg/trampa-gasolina.png",
         "alt_evidencia": "Tarrito de gasolina que funciona como trampa para aturdir al Vigilante en los pasillos.",
         "evidencia_pasillo": "public/iimg/pasillo-trampas.png",
         "alt_evidencia_pasillo": "Pasillo modular del supermercado con varias trampas de gasolina listas para usar.",
         "video_vigilante": "public/iimg/vigilante-trampa-loop.mp4",
-        "que_descubrimos": "El jugador entiende cómo esconderse. La trampa aturde al Vigilante correctamente al pasar por encima y no presentó problemas durante la prueba. También descubrimos que los pasillos son demasiado estrechos, lo que hace casi imposible esquivar al Vigilante si te ve de frente.",
+        "video_espejos": "public/iimg/espejos-vigilante.mp4",
+        "que_descubrimos": "El jugador entiende que correr en sprint consume stamina y que saltar obstáculos también la gasta, así que debe administrarla con cuidado. La trampa aturde al Vigilante correctamente al pasar por encima y no presentó problemas durante la prueba. También descubrimos que los pasillos son demasiado estrechos, lo que hace casi imposible esquivar al Vigilante si te ve de frente.",
         "que_cambiaremos": [
           "Ampliar el ancho de los pasillos principales en un 20%.",
           "Agregar un indicador visual (signo de exclamación) cuando el Vigilante detecta al jugador.",
