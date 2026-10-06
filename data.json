@@ -50,9 +50,37 @@
         "video_espejos": "public/iimg/espejos-vigilante.mp4",
         "que_descubrimos": "El jugador entiende que correr en sprint consume stamina y que saltar obstáculos también la gasta, así que debe administrarla con cuidado. La trampa aturde al Vigilante correctamente al pasar por encima y no presentó problemas durante la prueba. También descubrimos que los pasillos son demasiado estrechos, lo que hace casi imposible esquivar al Vigilante si te ve de frente.",
         "que_cambiaremos": [
-          "Ampliar el ancho de los pasillos principales en un 20%.",
-          "Agregar un indicador visual (signo de exclamación) cuando el Vigilante detecta al jugador.",
-          "Implementar el primer ítem de distracción (lata de duraznos)."
+          "Generaremos el sitio web DevBlog para documentar el desarrollo del juego.",
+          "Usaremos un estilo acorde al estilo de juego y al público objetivo."
+        ]
+      }
+    },
+    {
+      "semana": "Semana 2",
+      "titulo": "Graybox v0.2 — Sitio Web DevBlog",
+      "preguntas": {
+        "que_probar": "Queriamos desarrollar un sitio web para documentar el desarrollo del juego y mostrar avances, imágenes y videos de las pruebas realizadas.",
+        "que_implementamos": "Se implementó un sitio web DevBlog con secciones para el juego, concepto, bitácora de desarrollo y un teaser del juego.",
+        "evidencias_mapa": [
+          {
+            "imagen": "public/iimg/Semana2/image_WebSite.png",
+            "alt": "Home "
+          },
+          {
+            "imagen": "public/iimg/Semana2/image_Visual.png",
+            "alt": "Imagen del entorno Visual studio"
+          }
+        ],
+        "detalle_trampa": "Los jugadores pueden colocar diferentes tipos de trampas que afectan al Vigilante de distintas maneras, como ralentizarlo o aturdirlo.",
+        "detalle_comunicacion": "El sistema de walkie-talkies permite a los jugadores hablar entre sí, pero con un rango limitado y posibles interferencias.",
+        "evidencia_trampa": "public/iimg/Semana2/trampa-colocada.png",
+        "alt_evidencia_trampa": "Trampa colocada en el pasillo que ralentiza al Vigilante al pasar por encima.",
+        "evidencia_comunicacion": "public/iimg/Semana2/walkie-talkie.png",
+        "alt_evidencia_comunicacion": "Jugador usando un walkie-talkie para comunicarse con su equipo.",
+        "que_descubrimos": "La colocación de trampas es intuitiva y efectiva, pero la comunicación por walkie-talkie necesita ajustes en el rango y la claridad del audio.",
+        "que_cambiaremos": [
+          "Ajustaremos el rango de comunicación de los walkie-talkies y mejoraremos la claridad del audio.",
+          "Añadiremos más tipos de trampas y efectos visuales para indicar su activación."
         ]
       }
     }
