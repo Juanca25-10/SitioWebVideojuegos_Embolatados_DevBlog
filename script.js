@@ -11,6 +11,30 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 });
 
+function renderizarAreas(areas, clase) {
+    if (!areas?.length) return '';
+
+    return `
+        <div class="${clase}">
+            ${areas.map(area => `
+                <div class="avance-area">
+                    <h4>${area.titulo}</h4>
+                    ${area.descripcion ? `<p>${area.descripcion}</p>` : ''}
+                    ${area.evidencia ? `
+                        <div class="evidence-row">
+                            <button class="evidence-image-button" type="button" data-full-image="${area.evidencia}" data-image-alt="${area.alt_evidencia || 'Evidencia visual de ' + area.titulo}" aria-label="Ampliar imagen de ${area.titulo}">
+                                <img src="${area.evidencia}" alt="${area.alt_evidencia || 'Evidencia visual de ' + area.titulo}" loading="lazy">
+                            </button>
+                        </div>
+                    ` : ''}
+                    ${area.items?.length ? `<ul>${area.items.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+                    ${area.subareas?.length ? renderizarAreas(area.subareas, 'avance-subareas') : ''}
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
 function renderizarPagina(data) {
     const app = document.getElementById('app');
     let htmlContent = '';
@@ -50,6 +74,8 @@ function renderizarPagina(data) {
         let listaCambios = entrada.preguntas.que_cambiaremos.map(cambio => `<li>${cambio}</li>`).join('');
         const evidenciasMapa = entrada.preguntas.evidencias_mapa || [];
         const imagenPortadaMapa = evidenciasMapa[0];
+        const areasImplementadasHtml = renderizarAreas(entrada.preguntas.areas_implementadas, 'avance-implementado');
+        const pendientesHtml = renderizarAreas(entrada.preguntas.pendientes, 'avance-pendiente');
         const galeriaMapa = imagenPortadaMapa ? `
             <p class="pregunta">Vistas del mapa</p>
             <details class="map-gallery">
@@ -77,9 +103,11 @@ function renderizarPagina(data) {
 
                 <p class="pregunta">2. ¿Qué implementamos?</p>
                 <p>${entrada.preguntas.que_implementamos}</p>
+                ${entrada.preguntas.estado_general ? `<p class="estado-general">${entrada.preguntas.estado_general}</p>` : ''}
+                ${areasImplementadasHtml}
                 ${galeriaMapa}
 
-                <p class="pregunta">3. Evidencia</p>
+                ${(entrada.preguntas.evidencia || entrada.preguntas.evidencia_pasillo || entrada.preguntas.video_vigilante || entrada.preguntas.video_espejos) ? '<p class="pregunta">3. Evidencia</p>' : ''}
                 ${entrada.preguntas.evidencia ? `
                     ${entrada.preguntas.detalle_trampa ? `<p class="pregunta">Trampa de gasolina</p><p>${entrada.preguntas.detalle_trampa}</p>` : ''}
                     <div class="evidence-row">
@@ -112,6 +140,9 @@ function renderizarPagina(data) {
                         <video class="evidence-video" src="${entrada.preguntas.video_espejos}" autoplay loop muted controls playsinline preload="metadata" aria-label="Uso de los espejos para comprobar si el Vigilante sigue al jugador"></video>
                     </div>
                 ` : ''}
+                ${entrada.preguntas.evidencia_pendiente ? `<p class="evidence-placeholder">${entrada.preguntas.evidencia_pendiente}</p>` : ''}
+
+                ${pendientesHtml ? `<div class="pendientes-multiplayer"><h4>Trabajo pendiente</h4>${pendientesHtml}</div>` : ''}
 
                 <p class="pregunta">4. ¿Qué observamos o descubrimos?</p>
                 <p>${entrada.preguntas.que_descubrimos}</p>

@@ -2,7 +2,13 @@
   "juego": {
     "nombre": "EMBOLATADOS",
     "descripcion": "Un grupo de niños perdidos explora un inmenso supermercado modular que cambia en cada partida para intentar reencontrarse. Deben comunicarse por walkie-talkies y armar trampas con productos para evadir a los adultos.",
-    "integrantes": ["Camilo Pinzon Mosquera", "Santiago López Gómez", "Juan Camilo López Sinisterra", "Esteban Cifuentes Puentes", "Stiven Mendez Castañeda"],
+    "integrantes": [
+      "Camilo Pinzon Mosquera",
+      "Santiago López Gómez",
+      "Juan Camilo López Sinisterra",
+      "Esteban Cifuentes Puentes",
+      "Stiven Mendez Castañeda"
+    ],
     "imagen_provisional": "public\\iimg\\imageEmbo.png"
   },
   "concepto": {
@@ -50,37 +56,121 @@
         "video_espejos": "public/iimg/espejos-vigilante.mp4",
         "que_descubrimos": "El jugador entiende que correr en sprint consume stamina y que saltar obstáculos también la gasta, así que debe administrarla con cuidado. La trampa aturde al Vigilante correctamente al pasar por encima y no presentó problemas durante la prueba. También descubrimos que los pasillos son demasiado estrechos, lo que hace casi imposible esquivar al Vigilante si te ve de frente.",
         "que_cambiaremos": [
-          "Generaremos el sitio web DevBlog para documentar el desarrollo del juego.",
-          "Usaremos un estilo acorde al estilo de juego y al público objetivo."
+          "Aumentaremos en un 20 % el ancho de los pasillos para facilitar el desplazamiento y las persecuciones.",
+          "Agregaremos una señal visual que indique cuándo el Vigilante detecta al jugador.",
+          "Implementaremos una lata de duraznos como distracción para el Vigilante."
         ]
       }
     },
     {
       "semana": "Semana 2",
-      "titulo": "Graybox v0.2 — Sitio Web DevBlog",
+      "titulo": "Multiplayer v0.1 — Lobby, salas y primeras interacciones",
       "preguntas": {
-        "que_probar": "Queriamos desarrollar un sitio web para documentar el desarrollo del juego y mostrar avances, imágenes y videos de las pruebas realizadas.",
-        "que_implementamos": "Se implementó un sitio web DevBlog con secciones para el juego, concepto, bitácora de desarrollo y un teaser del juego.",
-        "evidencias_mapa": [
+        "que_probar": "Queríamos construir y comprobar la base multijugador de Embolatados: crear y unirse a salas, gestionar el lobby, iniciar una partida, comunicarnos por voz y realizar interacciones sincronizadas.",
+        "que_implementamos": "En el transcurso de tres días se implementó y dejó funcional la base del sistema multijugador de Embolatados.",
+        "estado_general": "Multiplayer base: implementado · Mejora del sistema de aceite: en desarrollo",
+        "areas_implementadas": [
           {
-            "imagen": "public/iimg/Semana2/image_WebSite.png",
-            "alt": "Home "
+            "titulo": "Networking",
+            "items": [
+              "Integración de Photon Fusion y configuración de NetworkRunner y NetworkSceneManagerDefault.",
+              "Sesiones en Shared Mode y creación de salas con códigos automáticos de seis caracteres.",
+              "Normalización de los códigos ingresados y unión a salas mediante código.",
+              "Flujos separados para crear y unirse a salas.",
+              "Control para evitar conexiones simultáneas y manejo básico de errores.",
+              "Cierre de sesiones mediante runner.Shutdown()."
+            ]
           },
           {
-            "imagen": "public/iimg/Semana2/image_Visual.png",
-            "alt": "Imagen del entorno Visual studio"
+            "titulo": "Lobby",
+            "items": [
+              "Ingreso del nombre del jugador y creación o unión a salas.",
+              "Visualización del código de sala y opción para cancelar o abandonar el lobby.",
+              "Regreso al menú principal después de salir de una sesión.",
+              "Control de los estados de conexión, cancelación e inicio de partida."
+            ]
+          },
+          {
+            "titulo": "Jugadores",
+            "items": [
+              "PlayerData implementado como objeto de red y creado mediante SpawnAsync.",
+              "Registro del nombre del jugador dentro de la sesión.",
+              "Base preparada para sincronizar más información de cada jugador."
+            ]
+          },
+          {
+            "titulo": "Inicio de partida",
+            "items": [
+              "Identificación del Shared Master Client y restricción del inicio de partida a ese jugador.",
+              "Carga de la escena Escenario_GrayBox y gestión de la transición mediante Fusion."
+            ]
+          },
+          {
+            "titulo": "Photon Voice",
+            "items": [
+              "Integración de Photon Voice con Recorder y Speaker durante el lobby.",
+              "Desactivación de los componentes de voz del lobby al iniciar la partida."
+            ]
+          },
+          {
+            "titulo": "Sistema de aceite",
+            "items": [
+              "Recogida del aceite y visualización en la mano del jugador.",
+              "Posición de lanzamiento preparada usando la mano del jugador.",
+              "Lanzamiento sincronizado de forma básica y visible para los demás jugadores."
+            ]
           }
         ],
-        "detalle_trampa": "Los jugadores pueden colocar diferentes tipos de trampas que afectan al Vigilante de distintas maneras, como ralentizarlo o aturdirlo.",
-        "detalle_comunicacion": "El sistema de walkie-talkies permite a los jugadores hablar entre sí, pero con un rango limitado y posibles interferencias.",
-        "evidencia_trampa": "public/iimg/Semana2/trampa-colocada.png",
-        "alt_evidencia_trampa": "Trampa colocada en el pasillo que ralentiza al Vigilante al pasar por encima.",
-        "evidencia_comunicacion": "public/iimg/Semana2/walkie-talkie.png",
-        "alt_evidencia_comunicacion": "Jugador usando un walkie-talkie para comunicarse con su equipo.",
-        "que_descubrimos": "La colocación de trampas es intuitiva y efectiva, pero la comunicación por walkie-talkie necesita ajustes en el rango y la claridad del audio.",
+        "que_descubrimos": "El sistema de salas, la sincronización de los jugadores y Photon Voice funcionan correctamente durante las partidas multijugador. También es posible recoger y lanzar aceite, aunque su comportamiento todavía necesita mejoras.",
+        "pendientes": [
+          {
+            "titulo": "Mejoras del sistema de aceite",
+            "descripcion": "La recogida y el lanzamiento están implementados. Falta pulir el charco y asegurar que se pueda recoger otro aceite después de lanzar el primero.",
+            "subareas": [
+              {
+                "titulo": "Sincronización del charco",
+                "descripcion": "El charco producido por el aceite todavía no se sincroniza correctamente para todos.",
+                "items": [
+                  "Completar el spawn de red, la autoridad del objeto y su posición de aparición.",
+                  "Validar la sincronización y destrucción del charco."
+                ]
+              },
+              {
+                "titulo": "Recogida de un segundo aceite",
+                "descripcion": "Después de lanzar un aceite, algunos jugadores pueden quedar bloqueados y no pueden recoger otro.",
+                "items": [
+                  "Revisar PlayerInventory, OilTrapPickup y OilTrapInteractor.",
+                  "Comprobar el estado del aceite tras el lanzamiento, la autoridad de Fusion y la sincronización del inventario."
+                ]
+              }
+            ]
+          }
+        ],
         "que_cambiaremos": [
-          "Ajustaremos el rango de comunicación de los walkie-talkies y mejoraremos la claridad del audio.",
-          "Añadiremos más tipos de trampas y efectos visuales para indicar su activación."
+          "Corregir la sincronización del charco para que todos los jugadores lo vean y se destruya correctamente.",
+          "Resolver el bloqueo al recoger un segundo aceite después de lanzar el primero.",
+          "Probar y pulir el ciclo de recoger, lanzar y volver a recoger aceite en una partida multijugador."
+        ]
+      }
+    },
+    {
+      "semana": "Semana 3",
+      "titulo": "IA de enemigos sincronizada en red",
+      "preguntas": {
+        "que_probar": "Queríamos integrar la IA de los enemigos con Photon Fusion 2 en Shared Mode para que se comportara de forma consistente en partidas multijugador.",
+        "que_implementamos": "Adaptamos la IA y la generación de enemigos para que el MasterClient controle sus movimientos, estados y tiempos.",
+        "estado_general": "IA de enemigos en red: implementada y sincronizada en tiempo real para todos los jugadores",
+        "areas_implementadas": [
+          {
+            "titulo": "IA de enemigos en red",
+            "descripcion": "Configuramos la IA de los enemigos para funcionar en partidas multijugador con Photon Fusion 2 en Shared Mode. Añadimos NetworkObject y NetworkTransform a los prefabs, y adaptamos EnemySpawnerManager, EnemyFactory y EnemyAI para que el MasterClient controle los movimientos, estados y tiempos de la IA. Así, los enemigos se instancian en la partida y se sincronizan en tiempo real para todos los jugadores.",
+            "evidencia": "public/iimg/Semana3/ia-enemigo-photon-fusion.png",
+            "alt_evidencia": "Inspector de Unity con la configuración del script Enemy AI para el Vigilante."
+          }
+        ],
+        "que_descubrimos": "Al añadir los componentes de red a los prefabs y dejar el control de la IA en el MasterClient, los enemigos pueden instanciarse y sincronizarse para todos los jugadores de la partida.",
+        "que_cambiaremos": [
+          "Continuar validando el comportamiento de la IA en sesiones multijugador."
         ]
       }
     }
