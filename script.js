@@ -95,8 +95,12 @@ function renderizarPagina(data) {
         ` : '';
         
         htmlContent += `
-            <div class="entrada-bitacora">
-                <h3>${entrada.semana}: ${entrada.titulo}</h3>
+            <details class="entrada-bitacora">
+                <summary class="entrada-bitacora-resumen">
+                    <span>${entrada.semana}: ${entrada.titulo}</span>
+                    <span class="entrada-bitacora-icono" aria-hidden="true">+</span>
+                </summary>
+                <div class="entrada-bitacora-contenido">
                 
                 <p class="pregunta">1. ¿Qué queríamos probar?</p>
                 <p>${entrada.preguntas.que_probar}</p>
@@ -151,7 +155,8 @@ function renderizarPagina(data) {
                 <ul class="cambios">
                     ${listaCambios}
                 </ul>
-            </div>
+                </div>
+            </details>
         `;
     });
     htmlContent += `</section>`; // Cierre sección bitácora
@@ -210,7 +215,9 @@ function renderizarPagina(data) {
                 observer.unobserve(entrada.target);
             }
         });
-    }, { threshold: 0.12 });
+    // La bitácora es mucho más alta que la pantalla de un celular; exigir
+    // 12 % visible podía impedir que la sección recibiera is-visible.
+    }, { threshold: 0 });
 
     secciones.forEach((seccion, index) => {
         seccion.classList.add('reveal-on-scroll');

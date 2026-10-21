@@ -337,16 +337,73 @@ img {
 .entrada-bitacora {
     background: #fff;
     border: var(--border-width) solid var(--border-color);
-    padding: 20px;
     margin-bottom: 20px;
     box-shadow: 4px 4px 0px var(--accent-2);
 }
 
-.entrada-bitacora h3 {
+.entrada-bitacora-resumen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
     background: var(--accent-1);
-    padding: 5px 10px;
+    padding: 12px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+}
+
+.entrada-bitacora-resumen::-webkit-details-marker {
+    display: none;
+}
+
+.entrada-bitacora-resumen:focus-visible {
+    outline: 3px solid var(--accent-2);
+    outline-offset: 3px;
+}
+
+.entrada-bitacora-icono {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
     border: 2px solid var(--border-color);
-    margin-bottom: 15px;
+    background: var(--box-bg);
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.entrada-bitacora[open] .entrada-bitacora-icono {
+    background: var(--border-color);
+    color: #fff;
+}
+
+.entrada-bitacora[open] .entrada-bitacora-icono::before {
+    content: "−";
+}
+
+.entrada-bitacora[open] .entrada-bitacora-icono {
+    font-size: 0;
+}
+
+.entrada-bitacora[open] .entrada-bitacora-icono::before {
+    font-size: 1.25rem;
+}
+
+.entrada-bitacora-contenido {
+    padding: 18px 20px;
+}
+
+@media (max-width: 480px) {
+    .entrada-bitacora-resumen {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .entrada-bitacora-contenido {
+        padding: 14px 12px;
+    }
 }
 
 .estado-general {
