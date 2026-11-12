@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Para cargar el JSON localmente necesitas usar un servidor local (Live Server en VSCode)
     fetch('data.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+        })
         .then(data => {
             renderizarPagina(data);
         })
@@ -10,6 +13,23 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('app').innerHTML = `<div class="brutal-box"><h2>Error</h2><p>No se pudo cargar el archivo data.json. Recuerda usar Live Server.</p></div>`;
         });
 });
+
+function renderizarEvidencias(evidencias) {
+    if (!evidencias?.length) return '';
+
+    return `<div class="avance-galeria">
+        ${evidencias.map(foto => `
+            <figure class="avance-figura">
+                <button class="evidence-image-button avance-imagen" type="button"
+                    data-full-image="${foto.imagen}" data-image-alt="${foto.alt}"
+                    aria-label="Ampliar imagen: ${foto.alt}">
+                    <img src="${foto.imagen}" alt="${foto.alt}" loading="lazy" decoding="async">
+                </button>
+                <figcaption>${foto.alt}</figcaption>
+            </figure>
+        `).join('')}
+    </div>`;
+}
 
 function renderizarAreas(areas, clase) {
     if (!areas?.length) return '';
@@ -28,6 +48,7 @@ function renderizarAreas(areas, clase) {
                         </div>
                     ` : ''}
                     ${area.items?.length ? `<ul>${area.items.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+                    ${renderizarEvidencias(area.evidencias)}
                     ${area.subareas?.length ? renderizarAreas(area.subareas, 'avance-subareas') : ''}
                 </div>
             `).join('')}
@@ -45,8 +66,9 @@ function renderizarPagina(data) {
             <img src="public/iimg/personaje-verde.png" alt="">
         </div>
         <section id="inicio" class="brutal-box">
-            <div class="sticker">¡V 0.1!</div>
-            <h2>${data.juego.nombre}</h2>
+            <div class="sticker">SEMANA ${data.bitacora.length}</div>
+            <h1>${data.juego.nombre}</h1>
+            ${data.juego.estado ? `<p class="estado-general">${data.juego.estado}</p>` : ''}
             <img src="${data.juego.imagen_provisional}" alt="Imagen Provisional">
             <p><strong>Descripción:</strong> ${data.juego.descripcion}</p>
             <p><strong>Equipo:</strong> ${data.juego.integrantes.join(', ')}</p>
@@ -68,6 +90,7 @@ function renderizarPagina(data) {
     htmlContent += `
         <section id="bitacora" class="brutal-box">
             <h2>Desarrollo / Bitácora</h2>
+            ${data.nota_bitacora ? `<p class="bitacora-nota">${data.nota_bitacora}</p>` : ''}
     `;
     
     data.bitacora.forEach((entrada, index) => {
@@ -111,7 +134,8 @@ function renderizarPagina(data) {
                 ${areasImplementadasHtml}
                 ${galeriaMapa}
 
-                ${(entrada.preguntas.evidencia || entrada.preguntas.evidencia_pasillo || entrada.preguntas.video_vigilante || entrada.preguntas.video_espejos) ? '<p class="pregunta">3. Evidencia</p>' : ''}
+                ${(entrada.preguntas.evidencias_texto || entrada.preguntas.evidencia || entrada.preguntas.evidencia_pasillo || entrada.preguntas.video_vigilante || entrada.preguntas.video_espejos) ? '<p class="pregunta">3. Evidencia</p>' : ''}
+                ${entrada.preguntas.evidencias_texto ? `<p>${entrada.preguntas.evidencias_texto}</p>` : ''}
                 ${entrada.preguntas.evidencia ? `
                     ${entrada.preguntas.detalle_trampa ? `<p class="pregunta">Trampa de gasolina</p><p>${entrada.preguntas.detalle_trampa}</p>` : ''}
                     <div class="evidence-row">
@@ -169,7 +193,7 @@ function renderizarPagina(data) {
         </section>
 
         <section id="teaser" class="brutal-box" style="background: #000; color: #fff;">
-            <h2 style="background: var(--accent-1); color: #000;">Teaser (Semana 11)</h2>
+            <h2 style="background: var(--accent-1); color: #000;">Teaser</h2>
             <p>${data.teaser}</p>
         </section>
     `;
@@ -183,6 +207,22 @@ function renderizarPagina(data) {
         <img alt="">
     `;
     app.append(imageDialog);
+
+    // Una captura pendiente no debe dejar un icono roto ni un botón inutilizable.
+    app.querySelectorAll('.avance-imagen img').forEach(img => {
+        const mostrarPendiente = () => {
+            const figura = img.closest('figure');
+            figura.querySelector('button').hidden = true;
+            if (!figura.querySelector('.evidence-placeholder')) {
+                const aviso = document.createElement('p');
+                aviso.className = 'evidence-placeholder';
+                aviso.textContent = 'Captura pendiente de incorporar.';
+                figura.prepend(aviso);
+            }
+        };
+        img.addEventListener('error', mostrarPendiente, { once: true });
+        if (img.complete && img.naturalWidth === 0) mostrarPendiente();
+    });
 
     imageDialog.querySelector('.evidence-dialog-close').addEventListener('click', () => imageDialog.close());
     imageDialog.addEventListener('click', event => {

@@ -9,7 +9,8 @@
       "Esteban Cifuentes Puentes",
       "Stiven Mendez Castañeda"
     ],
-    "imagen_provisional": "public\\iimg\\imageEmbo.png"
+    "imagen_provisional": "public/iimg/imageEmbo.png",
+    "estado": "Semana 15 · En desarrollo"
   },
   "concepto": {
     "premisa": "Niños perdidos en un supermercado laberíntico, evadiendo a los adultos exagerados por su imaginación para llegar al punto de información antes del cierre.",
@@ -173,8 +174,538 @@
           "Continuar validando el comportamiento de la IA en sesiones multijugador."
         ]
       }
+    },
+    {
+      "semana": "Semana 4",
+      "titulo": "Del graybox al supermercado: escenario y recorrido",
+      "preguntas": {
+        "que_probar": "Queríamos dar forma al supermercado y preparar un espacio reconocible en el que explorar, esconderse y encontrarse con los demás jugadores.",
+        "que_implementamos": "Ampliamos la base del escenario con recursos del supermercado, módulos reutilizables y puntos para organizar el recorrido de los enemigos.",
+        "areas_implementadas": [
+          {
+            "titulo": "Escenario y ambientación",
+            "items": [
+              "Incorporación de modelos y materiales de la Zona 1 para sustituir progresivamente los volúmenes provisionales.",
+              "Organización de módulos del supermercado, incluidos estantes y el sector de frutas y verduras.",
+              "Preparación de prefabs del escenario completo y de una versión estática de la Zona 1."
+            ]
+          },
+          {
+            "titulo": "Recorridos y escenas de trabajo",
+            "items": [
+              "Distribución de puntos de nivel para patrullaje y aparición de enemigos mediante LevelPoint y LevelPointManager.",
+              "Separación de la escena de menú, el escenario de juego y escenas de pruebas para trabajar en sistemas concretos.",
+              "Conservación de los espejos de vigilancia como apoyo visual para explorar los pasillos."
+            ]
+          }
+        ],
+        "que_descubrimos": "El proyecto ya contiene una base de supermercado con recursos propios y escenas de ensayo. La construcción modular del entorno no permite afirmar por sí sola que el mapa se genere aleatoriamente en cada partida.",
+        "que_cambiaremos": [
+          "Seguir integrando el escenario con el movimiento y la navegación de los enemigos.",
+          "Revisar los espacios de paso, obstáculos y zonas donde el equipo puede reagruparse."
+        ],
+        "evidencias_texto": "Modelos y prefabs del supermercado y de la Zona 1, junto con los puntos de recorrido guardados en las escenas."
+      }
+    },
+    {
+      "semana": "Semana 5",
+      "titulo": "Movimiento, agotamiento y cámara en primera persona",
+      "preguntas": {
+        "que_probar": "Queríamos que desplazarse tuviera más respuesta visual y que administrar la stamina influyera en las decisiones del jugador.",
+        "que_implementamos": "Extendimos el controlador de movimiento, la recuperación de stamina y los efectos de cámara más allá de la base registrada en la semana 1.",
+        "areas_implementadas": [
+          {
+            "titulo": "Stamina y recuperación",
+            "items": [
+              "Consumo de energía al correr y saltar, con una pausa antes de regenerarla.",
+              "Estado de agotamiento que impide correr hasta cumplir el tiempo de recuperación y recuperar suficiente energía.",
+              "Umbral mínimo para iniciar el sprint y evitar que la barra oscile al intentar correr sin stamina.",
+              "Conexión de la stamina con su indicador visual."
+            ]
+          },
+          {
+            "titulo": "Control y sensación de movimiento",
+            "items": [
+              "Cámara con sensibilidad y límites de mirada vertical, junto al control de salto y agachado.",
+              "Balanceo de cámara al caminar y correr, respiración en reposo e impulsos al saltar y aterrizar.",
+              "Balanceo del objeto sostenido para acompañar el movimiento en primera persona.",
+              "Puntos de aparición y recuperación de la posición del jugador dentro de la escena."
+            ]
+          }
+        ],
+        "que_descubrimos": "Los scripts distinguen entre quedarse sin energía y volver a estar listo para correr. También separan la cámara del jugador local de la representación de los jugadores remotos.",
+        "que_cambiaremos": [
+          "Ajustar la respuesta del movimiento cuando los modelos y las animaciones estén integrados.",
+          "Comprobar la comodidad de los efectos de cámara durante recorridos largos."
+        ],
+        "evidencias_texto": "Componentes de movimiento, cámara, stamina y balanceo conectados a los prefabs de los personajes."
+      }
+    },
+    {
+      "semana": "Semana 6",
+      "titulo": "Lobby ampliado: regiones, tarjetas y jugadores listos",
+      "preguntas": {
+        "que_probar": "Queríamos que organizar una partida fuera más claro y evitar iniciar mientras faltaban jugadores por prepararse.",
+        "que_implementamos": "Ampliamos el lobby con selección de región, tarjetas de jugadores, confirmación de disponibilidad y controles para compartir el código de la sala.",
+        "areas_implementadas": [
+          {
+            "titulo": "Salas y regiones",
+            "items": [
+              "Selector de regiones de Photon, incluida Sudamérica.",
+              "Códigos de seis caracteres que incorporan la región para dirigir a quienes se unen a la misma ubicación.",
+              "Normalización del código y botones para copiarlo y pegarlo.",
+              "Guardado local del nombre, la región y las preferencias de personaje."
+            ]
+          },
+          {
+            "titulo": "Preparación del equipo",
+            "items": [
+              "Tarjetas con nombre del jugador, personaje, color y estado de preparación.",
+              "Estado Listo sincronizado y bloqueo de cambios durante el inicio de la partida.",
+              "Inicio reservado al responsable de la sala cuando todos están listos y los personajes son válidos y distintos.",
+              "Controles de teclado y mando en el lobby, respetando el foco de los campos de texto."
+            ]
+          }
+        ],
+        "que_descubrimos": "La sala ya gestiona más información que el nombre de sus integrantes. El código incluye controles para impedir el inicio con personajes repetidos o jugadores sin preparar.",
+        "que_cambiaremos": [
+          "Conectar la selección del lobby con los modelos que aparecen en la partida.",
+          "Revisar los mensajes de conexión, cancelación y salida de sala."
+        ],
+        "evidencias_texto": "Componentes de lobby, selector de región y panel de jugadores listos presentes en la escena Menu."
+      }
+    },
+    {
+      "semana": "Semana 7",
+      "titulo": "Personajes propios: Luna, Rayo, Pepo y Tina",
+      "preguntas": {
+        "que_probar": "Queríamos que cada jugador pudiera reconocerse dentro del equipo y que la elección del lobby se reflejara en el juego.",
+        "que_implementamos": "Incorporamos los cuatro personajes 3D y una estructura para seleccionarlos, mostrar su información y aplicar variantes de color.",
+        "areas_implementadas": [
+          {
+            "titulo": "Modelos 3D implementados",
+            "items": [
+              "Integración de Luna, Rayo, Pepo y Tina mediante definiciones de personaje y prefabs propios.",
+              "Modelos, materiales y rigs como base de la identidad visual y de las animaciones.",
+              "Vinculación del personaje seleccionado con el prefab utilizado al entrar a la partida."
+            ],
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Avances/personajes-perspectiva.png",
+                "alt": "Los cuatro modelos 3D de los personajes de Embolatados en una vista en perspectiva de Unity."
+              },
+              {
+                "imagen": "public/iimg/Avances/personajes-frontal.png",
+                "alt": "Vista frontal de los cuatro personajes implementados en Unity, con sus materiales y colores."
+              }
+            ]
+          },
+          {
+            "titulo": "Selección y apariencia en red",
+            "items": [
+              "Catálogo de personajes con nombre, descripción, retrato y referencia al modelo de juego.",
+              "Panel de selección con vista previa 3D y opciones de color.",
+              "Control de personajes ocupados y resolución de conflictos si dos jugadores intentan elegir el mismo.",
+              "Sincronización del personaje y el color mediante PlayerData y PlayerAppearance."
+            ]
+          }
+        ],
+        "que_descubrimos": "La elección del personaje abarca el catálogo, la tarjeta del lobby y la aparición en la escena. Las capturas muestran los modelos implementados; el cierre de sus animaciones se recoge en la semana 15.",
+        "que_cambiaremos": [
+          "Adaptar las interacciones y los objetos sostenidos a los nuevos personajes.",
+          "Completar y revisar las animaciones de desplazamiento, salto, agachado y recogida."
+        ],
+        "evidencias_texto": "Modelos 3D de los cuatro personajes ya implementados en Unity, mostrados en las capturas en perspectiva y de frente."
+      }
+    },
+    {
+      "semana": "Semana 8",
+      "titulo": "Base común de interacción y objetos en red",
+      "preguntas": {
+        "que_probar": "Queríamos que recoger, sostener y soltar objetos compartiera una misma lógica, y que el resto del equipo pudiera ver el objeto que lleva cada jugador.",
+        "que_implementamos": "Organizamos los objetos interactivos alrededor de una base común y preparamos la relación entre objeto, mano del personaje e inventario.",
+        "areas_implementadas": [
+          {
+            "titulo": "Detección e interacción",
+            "items": [
+              "Detección del objeto al que mira el jugador mediante PlayerInteractor.",
+              "Interfaz de interacción con una indicación contextual y comprobación de si la acción está disponible.",
+              "Base NetworkInteractable para compartir la lógica de interacción entre objetos y elementos del puzzle."
+            ]
+          },
+          {
+            "titulo": "Objetos recogibles",
+            "items": [
+              "NetworkItem diferencia objetos libres, sostenidos en la mano y guardados.",
+              "Anclaje visual distinto para la cámara propia y para la mano que ven los demás jugadores.",
+              "Control de físicas y colisiones al recoger o soltar; compensación de escala al colocar el objeto en la mano.",
+              "Solicitud y recuperación de autoridad de red para gestionar la recogida compartida."
+            ]
+          },
+          {
+            "titulo": "Base para trampas e inventario",
+            "items": [
+              "Comportamientos reutilizables para reaccionar a la recogida, al lanzamiento y al impacto.",
+              "Preparación de iconos y datos de los objetos para su presentación en el HUD.",
+              "La versión final del inventario y su retroalimentación se documentan en la semana 15."
+            ]
+          }
+        ],
+        "que_descubrimos": "La interacción ya no depende únicamente del prototipo del aceite. La base común permite conectar distintos objetos y preparar el inventario sin duplicar la lógica de la mano y la red.",
+        "que_cambiaremos": [
+          "Aplicar esta estructura a los objetos del supermercado.",
+          "Definir las diferencias entre una trampa de ruido y una trampa de aturdimiento."
+        ],
+        "evidencias_texto": "Scripts de interacción y componentes conectados a jugadores, objetos recogibles y elementos del puzzle."
+      }
+    },
+    {
+      "semana": "Semana 9",
+      "titulo": "Distracciones sonoras: latas de comida y botella de vidrio",
+      "preguntas": {
+        "que_probar": "Queríamos que el sonido pudiera delatar al jugador o servir para desviar la atención del Vigilante hacia otro lugar.",
+        "que_implementamos": "Incorporamos las latas de comida y la botella de vidrio como trampas sonoras: las latas se caen cuando el jugador pasa muy cerca y atraen al Vigilante; la botella lo lleva hacia la zona donde suena al arrojarla.",
+        "areas_implementadas": [
+          {
+            "titulo": "Latas de comida",
+            "items": [
+              "Pila de latas que se derrumba cuando el jugador pasa muy cerca.",
+              "Activación de la física de las latas y reproducción del sonido de la caída.",
+              "Aviso al Vigilante cercano para investigar el lugar del ruido.",
+              "Estado de derrumbe compartido entre los participantes mediante CannedWallTrap."
+            ],
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Avances/latas-comida.png",
+                "alt": "Pila de latas de comida situada en el supermercado; funciona como una trampa de ruido por proximidad."
+              }
+            ]
+          },
+          {
+            "titulo": "Botella de vidrio",
+            "items": [
+              "Modelo, material y prefab propios de la botella de vidrio.",
+              "Al arrojarla, el sonido atrae al Vigilante hacia la zona del impacto.",
+              "Puede utilizarse para desviar al Vigilante y abrir una oportunidad para avanzar."
+            ],
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Avances/botella-vidrio.png",
+                "alt": "Modelo de la botella de vidrio colocado en el escenario del supermercado."
+              }
+            ]
+          },
+          {
+            "titulo": "Investigación del ruido",
+            "items": [
+              "Estado de IA dedicado a desplazarse hasta una posición de interés sonoro.",
+              "Sistema de eventos de ruido para conectar alarmas y otros elementos con los enemigos.",
+              "El código actual evita distraer al enemigo con un ruido cuando ya está persiguiendo o transportando a un jugador."
+            ]
+          }
+        ],
+        "que_descubrimos": "Las latas convierten la proximidad en un riesgo y la botella permite dirigir una distracción hacia otra zona. El sonido forma parte de las decisiones del jugador al recorrer el supermercado.",
+        "que_cambiaremos": [
+          "Revisar el alcance del ruido y la reacción de los enemigos en partidas compartidas."
+        ],
+        "evidencias_texto": "Capturas de las latas de comida y la botella de vidrio implementadas en el supermercado."
+      }
+    },
+    {
+      "semana": "Semana 10",
+      "titulo": "Shampoo: evolución de la trampa de gasolina",
+      "preguntas": {
+        "que_probar": "Queríamos reemplazar el objeto provisional por un producto del supermercado, conservando la posibilidad de detener temporalmente al Vigilante.",
+        "que_implementamos": "Sustituimos la gasolina del prototipo por shampoo y desarrollamos su derrame con un charco sincronizado en red.",
+        "areas_implementadas": [
+          {
+            "titulo": "Nuevo objeto de trampa",
+            "items": [
+              "Modelo y prefab de shampoo en lugar de la gasolina utilizada al inicio del proyecto.",
+              "Recogida y lanzamiento apoyados en la base compartida de objetos.",
+              "Creación del charco al impactar para provocar un resbalón o aturdimiento temporal del enemigo."
+            ],
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Avances/shampoo.png",
+                "alt": "Envase de shampoo que reemplaza la trampa provisional de gasolina en Embolatados."
+              }
+            ]
+          },
+          {
+            "titulo": "Derrame y sincronización",
+            "items": [
+              "Posición y orientación iniciales del charco enviadas a todos los jugadores.",
+              "Alineación del charco con el suelo y separación mínima de la superficie para evitar parpadeos.",
+              "Mancha decorativa en paredes y búsqueda del suelo bajo el impacto para colocar el charco funcional.",
+              "Tiempo de vida del charco y retirada del objeto mediante la autoridad de red."
+            ]
+          },
+          {
+            "titulo": "Efecto temporal",
+            "items": [
+              "Conexión del charco con los personajes que admiten resbalones mediante ISlippable.",
+              "Duración configurable del efecto y recuperación posterior del personaje.",
+              "Las reacciones definitivas de las trampas forman parte del cierre reportado en la semana 15."
+            ]
+          }
+        ],
+        "que_descubrimos": "El shampoo mantiene la intención de la primera trampa, pero añade tratamiento de superficies y un charco con estado de red. El nombre de gasolina se conserva en las primeras semanas como parte de la evolución del prototipo.",
+        "que_cambiaremos": [
+          "Coordinar el efecto con las animaciones y las reacciones físicas.",
+          "Comprobar el ciclo de recoger, lanzar y volver a recoger en multijugador."
+        ],
+        "evidencias_texto": "Captura del shampoo que reemplaza la gasolina: cumple la misma función de aturdir al Vigilante durante unos segundos mediante su derrame."
+      }
+    },
+    {
+      "semana": "Semana 11",
+      "titulo": "Enemigos: percepción, captura y reacciones físicas",
+      "preguntas": {
+        "que_probar": "Queríamos ampliar la persecución para que los enemigos respondieran a obstáculos, sonidos y contactos con los personajes.",
+        "que_implementamos": "Extendimos la IA con percepción y transporte del jugador, y añadimos recursos de Nancy y una base de reacciones físicas para jugadores y enemigos.",
+        "areas_implementadas": [
+          {
+            "titulo": "Visión y patrullaje",
+            "items": [
+              "Detección por cono de visión, proximidad y línea de vista contra los obstáculos.",
+              "Consulta de la escena física correspondiente a cada participante de red para comprobar paredes y estantes.",
+              "Estados de espera, patrullaje, investigación de ruido, persecución, captura y pausa tras liberar al jugador.",
+              "Gestión de aparición y reaparición de enemigos mediante puntos del nivel."
+            ]
+          },
+          {
+            "titulo": "Captura y transporte",
+            "items": [
+              "Base para agarrar al jugador alcanzado y transportarlo a otro punto del escenario.",
+              "Límites de tiempo y distancia para soltar al jugador, junto con un intervalo en el que el enemigo lo ignora.",
+              "Protecciones para no cambiar de estado ni desaparecer mientras transporta a alguien.",
+              "El agarre finalizado se registra como entrega de la semana 15."
+            ]
+          },
+          {
+            "titulo": "Nancy y reacciones físicas",
+            "items": [
+              "Modelo con rig de Nancy y recursos de animación para reposo, desplazamiento, carrera y agarre.",
+              "RagdollController para caídas físicas temporales y recuperación de jugadores y enemigos.",
+              "Adaptadores que suspenden el movimiento, la interacción o la navegación mientras dura la caída.",
+              "Protección para que la captura y el derribo físico no controlen el cuerpo al mismo tiempo."
+            ]
+          }
+        ],
+        "que_descubrimos": "La IA incluye decisiones que van más allá de perseguir al jugador. El sistema de caídas necesita coordinarse con el control de red y el agarre para recuperar correctamente el movimiento.",
+        "que_cambiaremos": [
+          "Finalizar las transiciones de animación de jugadores y enemigos.",
+          "Revisar conjuntamente captura, liberación y reacciones a trampas."
+        ],
+        "evidencias_texto": "Prefab y recursos de animación de Nancy, lógica de IA y componentes de reacción física conectados a los personajes."
+      }
+    },
+    {
+      "semana": "Semana 12",
+      "titulo": "Flujo de partida, objetivos y victoria cooperativa",
+      "preguntas": {
+        "que_probar": "Queríamos que el equipo tuviera un objetivo visible y que llegar al punto de información completara la partida de forma compartida.",
+        "que_implementamos": "Añadimos gestión del estado de juego, progreso entre zonas, condición de victoria y controles para pausar o salir de la sesión.",
+        "areas_implementadas": [
+          {
+            "titulo": "Progreso compartido",
+            "items": [
+              "GameManager y MatchState separan la presentación local del estado compartido de la partida.",
+              "Etapas previstas para Zona 1, Zona 2 y Punto de Información.",
+              "Actualización del objetivo mostrado al cambiar de etapa.",
+              "Vínculos para que completar un puzzle haga avanzar el objetivo del equipo."
+            ]
+          },
+          {
+            "titulo": "Llegada al punto de información",
+            "items": [
+              "Zona de meta definida mediante GoalTrigger.",
+              "Conteo de jugadores presentes frente a los participantes activos de la sesión.",
+              "Victoria al permanecer todo el equipo dentro de la meta durante un intervalo breve.",
+              "Panel de victoria y contador de progreso para la llegada del grupo."
+            ]
+          },
+          {
+            "titulo": "Pausa y salida",
+            "items": [
+              "Pantallas de juego y pausa gestionadas desde GameController.",
+              "Salida de la sala y regreso al menú con limpieza de la sesión.",
+              "Control de cámara y audio durante los cambios de escena."
+            ]
+          }
+        ],
+        "que_descubrimos": "El código de victoria comprueba la presencia real de los jugadores en la meta y considera a los participantes activos. Tener este flujo preparado no implica que todos los puzzles y zonas estén terminados.",
+        "que_cambiaremos": [
+          "Conectar el primer puzzle con el avance hacia la siguiente zona.",
+          "Revisar la interfaz de objetivos junto con el HUD definitivo."
+        ],
+        "evidencias_texto": "Componentes de estado de partida y objetivos en Escenario_GrayBox, junto con los recursos de interfaz de juego."
+      }
+    },
+    {
+      "semana": "Semana 13",
+      "titulo": "Bases de puzzles cooperativos: llaves, cajas y zonas de vigilancia",
+      "preguntas": {
+        "que_probar": "Queríamos convertir la cooperación en acciones concretas del recorrido y preparar retos ajustados al número de jugadores.",
+        "que_implementamos": "Desarrollamos la estructura del puzzle de cajas registradoras y una base de código para un reto posterior de zonas de vigilancia.",
+        "areas_implementadas": [
+          {
+            "titulo": "Preparación del primer puzzle",
+            "items": [
+              "Llaves recogibles y ranuras de cajas con estado sincronizado.",
+              "Cantidad de cajas habilitadas adaptada al número de jugadores.",
+              "Temporizadores para coordinar la inserción de llaves y la apertura del portón.",
+              "Palanca para consolidar la apertura y permitir el avance del equipo."
+            ]
+          },
+          {
+            "titulo": "Señales y alarmas",
+            "items": [
+              "Base para luces de estado, sonidos de llave, apertura del portón y alarma.",
+              "Alarma conectada al sistema de ruido que puede atraer a los enemigos.",
+              "Reinicio del reto si termina la ventana de apertura antes de accionar la palanca."
+            ]
+          },
+          {
+            "titulo": "Base del siguiente reto: El Ojo de la Central",
+            "items": [
+              "Código de grupos de zonas que emiten una alerta al ser atravesadas mientras están activas.",
+              "Botones que desactivan temporalmente un grupo, con tiempos diferenciados para solitario y cooperativo.",
+              "Componentes preparados para una cámara de vigilancia y una persiana final.",
+              "Base de código pendiente de integración: no se encontraron referencias de estos componentes en escenas o prefabs revisados."
+            ]
+          }
+        ],
+        "que_descubrimos": "El primer puzzle tiene piezas conectadas en Escenario_GrayBox. El reto de zonas de vigilancia se encuentra en una fase distinta: hay scripts, pero no evidencia de integración equivalente en la copia revisada.",
+        "que_cambiaremos": [
+          "Cerrar el primer puzzle y su retroalimentación en la semana 15.",
+          "Continuar la integración y las pruebas del reto de vigilancia."
+        ],
+        "evidencias_texto": "Puzzle de cajas, llaves y palanca conectado a Escenario_GrayBox. El reto de vigilancia dispone de código, pero su integración en escenas no está confirmada."
+      }
+    },
+    {
+      "semana": "Semana 14",
+      "titulo": "Identidad visual, menú y carga del escenario",
+      "preguntas": {
+        "que_probar": "Queríamos acercar la presentación a la identidad visual del juego y preparar la carga de un escenario más pesado sin interrumpir la sesión.",
+        "que_implementamos": "Trabajamos en materiales y shaders estilizados, la presentación del menú y herramientas para repartir el trabajo de carga del escenario.",
+        "areas_implementadas": [
+          {
+            "titulo": "Estilo visual del entorno",
+            "items": [
+              "Recursos de cel shading, contornos, tinta y apariencia de papel para explorar un acabado ilustrado.",
+              "Materiales y pruebas de shaders para personajes, objetos y entorno.",
+              "Gestión de luz ambiental, cielo, reflexiones y mapas de luz al cambiar la escena activa de Photon.",
+              "Escena específica de pruebas visuales; el cierre del shader del entorno se registra en la semana 15."
+            ]
+          },
+          {
+            "titulo": "Presentación del menú",
+            "items": [
+              "Escena y recursos 3D propios para la introducción y el menú.",
+              "Transiciones de cámara entre introducción, menú y lobby mediante Cinemachine.",
+              "Animación de texto y recursos de animación para la presentación.",
+              "Conexión de los cambios de cámara con la creación o entrada a una sala."
+            ]
+          },
+          {
+            "titulo": "Carga y estabilidad",
+            "items": [
+              "Pantalla de carga con fundidos y espera a la aparición del jugador local.",
+              "Soporte para precalentar variantes de shaders y gestionar la carga de texturas.",
+              "Activación por partes de los objetos pesados del escenario mediante ZoneStreamer.",
+              "Preparación de colisiones de mallas en segundo plano y herramientas para diagnosticar bloqueos.",
+              "Regreso al menú con un aviso si se pierde la sesión durante la carga."
+            ]
+          }
+        ],
+        "que_descubrimos": "El proyecto contiene trabajo específico para manejar el coste del escenario y conservar su iluminación en multijugador. Estas herramientas requieren mediciones en el juego para determinar cuánto mejoran la carga; la revisión del código no aporta cifras de rendimiento.",
+        "que_cambiaremos": [
+          "Integrar el menú editado y el shader del entorno con el cierre visual de la semana 15.",
+          "Validar el recorrido completo desde el lobby hasta la partida con varios jugadores."
+        ],
+        "evidencias_texto": "Escena Menu, recursos de shaders y materiales, escena de pruebas visuales y componentes de transición y carga gradual."
+      }
+    },
+    {
+      "semana": "Semana 15",
+      "titulo": "Integración actual: puzzle, agarre, animaciones, HUD e inventario",
+      "preguntas": {
+        "que_probar": "Queríamos reunir los sistemas trabajados durante el proyecto en una versión más completa, con interacciones claras y una presentación coherente.",
+        "que_implementamos": "El equipo confirmó para esta semana el cierre del Puzzle 1, el agarre, las reacciones de trampas, las animaciones del enemigo, la edición del menú, el shader del entorno, las animaciones de jugadores, el HUD, el inventario y la retroalimentación de interacción con objetos.",
+        "areas_implementadas": [
+          {
+            "titulo": "Puzzle 1 finalizado",
+            "items": [
+              "Puzzle de cajas registradoras, llaves y portón integrado en la escena de juego.",
+              "Coordinación de las llaves según la cantidad de jugadores y apertura temporal del paso.",
+              "Palanca para dejar abierto el portón, con reinicio si se agota el tiempo.",
+              "Avance de etapa y recursos de luz y sonido para acompañar el reto."
+            ]
+          },
+          {
+            "titulo": "Agarre y reacciones de trampas finalizados",
+            "items": [
+              "Agarre, transporte y liberación del jugador por parte del enemigo.",
+              "Latas de comida: se caen al pasar muy cerca y atraen al Vigilante con el ruido.",
+              "Shampoo: reemplaza la gasolina y provoca un aturdimiento temporal mediante su derrame.",
+              "Botella de vidrio: al arrojarla, el sonido atrae al Vigilante hacia la zona del impacto.",
+              "Coordinación de las reacciones físicas con el movimiento y la recuperación de los personajes."
+            ]
+          },
+          {
+            "titulo": "Animaciones de enemigo y jugadores",
+            "items": [
+              "Cierre reportado de las animaciones del enemigo y su conexión con desplazamiento y agarre.",
+              "Animaciones de los jugadores para desplazarse, agacharse, saltar y recoger objetos.",
+              "Gestión de parámetros de animación y representación de las acciones en red.",
+              "Efectos visuales de movimiento y coordinación entre animación y reacciones físicas."
+            ]
+          },
+          {
+            "titulo": "Menú editado y shader del entorno",
+            "items": [
+              "Edición del menú y de su presentación con cámaras y elementos 3D.",
+              "Shader del entorno trabajado para acompañar la estética de personajes y objetos.",
+              "Integración del estilo visual con los materiales del supermercado."
+            ]
+          },
+          {
+            "titulo": "Sistema de inventario",
+            "items": [
+              "Tres espacios seleccionables con las teclas 1, 2 y 3; pulsar de nuevo el espacio activo deja las manos libres.",
+              "Recogida de objetos con asignación a un espacio disponible y cambio del objeto visible en la mano.",
+              "Toque breve de Q para soltar; mantener Q para cargar el lanzamiento y soltar la tecla para arrojar.",
+              "Limpieza de espacios cuando un objeto desaparece o cambia de propietario.",
+              "Gestión de autoridad de red para coordinar la recogida y el lanzamiento."
+            ]
+          },
+          {
+            "titulo": "HUD finalizado y retroalimentación de interacción",
+            "items": [
+              "Iconos de los objetos y resaltado del espacio seleccionado.",
+              "Indicaciones contextuales al mirar un objeto con el que se puede interactuar.",
+              "Círculo de carga del lanzamiento que responde a la fuerza acumulada.",
+              "Indicadores de stamina, objetivos y llegada del equipo a la meta.",
+              "Conexión del HUD al jugador local para mostrar la información de su inventario e interacción."
+            ]
+          }
+        ],
+        "que_descubrimos": "La versión actual reúne personajes propios, objetos, enemigos, un primer puzzle y una interfaz más completa. Los cierres de esta semana corresponden a lo reportado por el equipo; el proyecto continúa en desarrollo y todavía requiere comprobar la integración completa en una partida.",
+        "que_cambiaremos": [
+          "Comprobar todas las trampas en partidas compartidas con el equipo.",
+          "Validar el ciclo completo: entrar al lobby, elegir personaje, iniciar, resolver el puzzle y llegar juntos a la meta.",
+          "Continuar la integración del siguiente puzzle y revisar ajustes de cámara, rendimiento y sincronización.",
+          "Preparar las evidencias de las siguientes entregas y los materiales de la demo y el teaser cuando estén disponibles."
+        ],
+        "estado_general": "Cierre de sistemas reportado por el equipo · Proyecto en desarrollo",
+        "evidencias_texto": "Avances confirmados por el equipo para esta entrega. Las capturas de los personajes ya implementados están en la semana 7; las latas y la botella de vidrio, en la semana 9; y el shampoo, en la semana 10."
+      }
     }
   ],
-  "demo": "Actualmente en fase de prototipado Graybox. ¡Pronto habrá un build jugable!",
-  "teaser": "Sección reservada para la Semana 11. Aquí irá el tráiler final del juego."
+  "demo": "El proyecto continúa en desarrollo. Hasta la semana 15 reúne multijugador, personajes propios, trampas, el primer puzzle, inventario y HUD. Aún no se ha incorporado un enlace de descarga o una demo jugable a este devblog.",
+  "teaser": "El teaser sigue pendiente de incorporarse a la página. Este espacio reunirá el video de presentación del juego cuando esté disponible.",
+  "nota_bitacora": "Sigue la evolución de Embolatados desde la semana 0 hasta la semana actual, la 15: la idea inicial, los primeros prototipos y los avances en personajes, escenarios, trampas y sistemas de juego."
 }
