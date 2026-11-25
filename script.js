@@ -58,6 +58,8 @@ function renderizarAreas(areas, clase) {
 
 function renderizarPagina(data) {
     const app = document.getElementById('app');
+    const mostrarDemo = Boolean(data.demo);
+    document.getElementById('nav-demo').hidden = !mostrarDemo;
     let htmlContent = '';
 
     // SECCIÓN 1: INICIO
@@ -94,7 +96,9 @@ function renderizarPagina(data) {
     `;
     
     data.bitacora.forEach((entrada, index) => {
-        let listaCambios = entrada.preguntas.que_cambiaremos.map(cambio => `<li>${cambio}</li>`).join('');
+        const listaCambios = (entrada.preguntas.que_cambiaremos || [])
+            .map(cambio => `<li>${cambio}</li>`).join('');
+        const galeriaEvidencias = renderizarEvidencias(entrada.preguntas.evidencias);
         const evidenciasMapa = entrada.preguntas.evidencias_mapa || [];
         const imagenPortadaMapa = evidenciasMapa[0];
         const areasImplementadasHtml = renderizarAreas(entrada.preguntas.areas_implementadas, 'avance-implementado');
@@ -134,8 +138,9 @@ function renderizarPagina(data) {
                 ${areasImplementadasHtml}
                 ${galeriaMapa}
 
-                ${(entrada.preguntas.evidencias_texto || entrada.preguntas.evidencia || entrada.preguntas.evidencia_pasillo || entrada.preguntas.video_vigilante || entrada.preguntas.video_espejos) ? '<p class="pregunta">3. Evidencia</p>' : ''}
+                ${(entrada.preguntas.evidencias_texto || entrada.preguntas.evidencia || entrada.preguntas.evidencia_pasillo || entrada.preguntas.video_vigilante || entrada.preguntas.video_espejos || galeriaEvidencias) ? '<p class="pregunta">3. Evidencia</p>' : ''}
                 ${entrada.preguntas.evidencias_texto ? `<p>${entrada.preguntas.evidencias_texto}</p>` : ''}
+                ${galeriaEvidencias}
                 ${entrada.preguntas.evidencia ? `
                     ${entrada.preguntas.detalle_trampa ? `<p class="pregunta">Trampa de gasolina</p><p>${entrada.preguntas.detalle_trampa}</p>` : ''}
                     <div class="evidence-row">
@@ -175,26 +180,45 @@ function renderizarPagina(data) {
                 <p class="pregunta">4. ¿Qué observamos o descubrimos?</p>
                 <p>${entrada.preguntas.que_descubrimos}</p>
 
-                <p class="pregunta">5. ¿Qué cambiaremos en la siguiente versión?</p>
-                <ul class="cambios">
-                    ${listaCambios}
-                </ul>
+                ${listaCambios ? `
+                    <p class="pregunta">5. ¿Qué cambiaremos en la siguiente versión?</p>
+                    <ul class="cambios">${listaCambios}</ul>
+                ` : ''}
+                ${entrada.preguntas.cierre ? `
+                    <p class="pregunta">5. Cierre de la bitácora</p>
+                    <p>${entrada.preguntas.cierre}</p>
+                ` : ''}
                 </div>
             </details>
         `;
     });
     htmlContent += `</section>`; // Cierre sección bitácora
 
-    // SECCIÓN 4: DEMO Y TEASER
-    htmlContent += `
-        <section id="demo" class="brutal-box" style="border-color: var(--accent-2);">
-            <h2 style="background: var(--accent-2);">Demo Jugable</h2>
-            <p>${data.demo}</p>
-        </section>
+    if (mostrarDemo) {
+        htmlContent += `
+            <section id="demo" class="brutal-box" style="border-color: var(--accent-2);">
+                <h2 style="background: var(--accent-2);">Demo Jugable</h2>
+                <p>${data.demo}</p>
+            </section>
+        `;
+    }
 
+    // SECCIÓN 4: TEASER
+    const teaserVideoId = data.teaser_video_id ? encodeURIComponent(data.teaser_video_id) : '';
+    htmlContent += `
         <section id="teaser" class="brutal-box" style="background: #000; color: #fff;">
             <h2 style="background: var(--accent-1); color: #000;">Teaser</h2>
             <p>${data.teaser}</p>
+            ${teaserVideoId ? `
+                <iframe class="teaser-video"
+                    src="https://www.youtube-nocookie.com/embed/${teaserVideoId}"
+                    title="Teaser de Embolatados"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="encrypted-media; picture-in-picture; fullscreen"
+                    allowfullscreen></iframe>
+                <a class="teaser-link" href="https://www.youtube.com/watch?v=${teaserVideoId}">Ver en YouTube</a>
+            ` : ''}
         </section>
     `;
 

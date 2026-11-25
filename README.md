@@ -1,4 +1,4 @@
-# Embolatados — Devblog hasta la semana 15
+# Embolatados — Devblog de 16 semanas
 
 Sitio estático en HTML, CSS y JavaScript. El contenido está en `data.json` y se carga mediante `fetch`.
 
@@ -9,11 +9,11 @@ Abre esta carpeta en Visual Studio Code y ejecuta `index.html` con Live Server. 
 ## Actualización preparada
 
 - Se conservan íntegramente las entradas de las semanas 1, 2 y 3.
-- Se agregan las semanas 4 a 15 con el mismo formato de preguntas y entradas desplegables, cerradas al entrar.
-- Las semanas 4 a 14 son una reconstrucción temática del desarrollo, no fechas verificadas. Esta aclaración también aparece en la página.
+- Las 16 entradas mantienen el formato desplegable. La semana 16 cierra la bitácora con capturas de partida.
+- Las semanas 4 a 14 son una reconstrucción temática del desarrollo, no fechas verificadas.
 - La semana 15 reúne los cierres confirmados por el equipo.
-- Se actualizan el estado de portada y los textos de demo y teaser para reflejar que el proyecto sigue en desarrollo.
-- Se incorporan las cinco capturas originales en galerías con ampliación.
+- La portada indica que la bitácora está completa. La sección de demo queda oculta mientras no haya contenido de demo en `data.json`.
+- Las capturas se pueden ampliar en las galerías del devblog.
 - Se ajusta la presentación para pantallas pequeñas y se mantiene el diseño existente.
 
 ## Capturas incorporadas
@@ -27,6 +27,8 @@ Las capturas originales se guardan en public/iimg/Avances/ y se muestran con amp
 | Latas de comida | latas-comida.png | Semana 9 |
 | Botella de vidrio | botella-vidrio.png | Semana 9 |
 | Shampoo | shampoo.png | Semana 10 |
+| Vista cenital del supermercado | public/iimg/Semana13/mapa-supermercado-cenital.png | Semana 13 |
+| Diez capturas de partida | public/iimg/Semana16/ | Semana 16 |
 
 Las latas caen cuando el jugador pasa muy cerca y atraen al Vigilante. El shampoo reemplaza la gasolina y lo aturde durante unos segundos. Al arrojar la botella, el sonido lo atrae hacia la zona del impacto.
 
@@ -34,7 +36,7 @@ Las latas caen cuando el jugador pasa muy cerca y atraen al Vigilante. El shampo
 
 Añade una entrada al arreglo `bitacora` en `data.json`, siguiendo la estructura existente. Cada entrada utiliza `semana`, `titulo` y `preguntas`. Las áreas de trabajo aceptan `titulo`, `descripcion`, `items`, `subareas`, una `evidencia` individual o una lista `evidencias` con objetos `{ "imagen": "ruta", "alt": "descripción" }`.
 
-Actualiza también `juego.estado`, `demo` y `teaser` cuando existan novedades reales. El número de semana del distintivo se obtiene automáticamente de la cantidad de entradas.
+El distintivo refleja la cantidad de entradas. Las entradas pueden incluir `preguntas.evidencias` para una galería general y `preguntas.cierre` para el texto de cierre.
 
 ## Verificación
 

@@ -1,7 +1,7 @@
 {
   "juego": {
     "nombre": "EMBOLATADOS",
-    "descripcion": "Un grupo de niños perdidos explora un inmenso supermercado modular que cambia en cada partida para intentar reencontrarse. Deben comunicarse por walkie-talkies y armar trampas con productos para evadir a los adultos.",
+    "descripcion": "Un grupo de niños se pierde en un supermercado a punto de cerrar. El equipo recorre los pasillos, usa productos para distraer a los adultos y coordina las llaves de las cajas registradoras para avanzar hacia el Punto de Información.",
     "integrantes": [
       "Camilo Pinzon Mosquera",
       "Santiago López Gómez",
@@ -10,13 +10,13 @@
       "Stiven Mendez Castañeda"
     ],
     "imagen_provisional": "public/iimg/imageEmbo.png",
-    "estado": "Semana 15 · En desarrollo"
+    "estado": "Bitácora completada"
   },
   "concepto": {
     "premisa": "Niños perdidos en un supermercado laberíntico, evadiendo a los adultos exagerados por su imaginación para llegar al punto de información antes del cierre.",
     "genero": "Multijugador Cooperativo de Supervivencia y Sigilo Cómico",
     "objetivo": "Sobrevivir a la desorientación, reagrupar a todo el equipo y llegar juntos al punto de información principal.",
-    "core_loop": "Explorar pasillos modulares → Comunicarse (Walkie-talkie) → Evadir/Distraer adultos (Trampas) → Reagruparse con aliados → Avanzar hacia la meta → Repetir."
+    "core_loop": "Explorar el supermercado, conseguir objetos, esquivar o distraer a los adultos, coordinar la apertura del paso y reagruparse."
   },
   "bitacora": [
     {
@@ -582,7 +582,13 @@
           "Cerrar el primer puzzle y su retroalimentación en la semana 15.",
           "Continuar la integración y las pruebas del reto de vigilancia."
         ],
-        "evidencias_texto": "Puzzle de cajas, llaves y palanca conectado a Escenario_GrayBox. El reto de vigilancia dispone de código, pero su integración en escenas no está confirmada."
+        "evidencias_texto": "La vista cenital muestra cómo quedaron distribuidos los pasillos, las góndolas y los puestos del supermercado. En este escenario se integró el reto de las cajas registradoras, con llaves, portón y palanca. El reto de vigilancia cuenta con una base de código.",
+        "evidencias": [
+          {
+            "imagen": "public/iimg/Semana13/mapa-supermercado-cenital.png",
+            "alt": "Vista cenital del supermercado. Se distinguen las góndolas, los puestos, los pasillos y las conexiones entre sectores."
+          }
+        ]
       }
     },
     {
@@ -631,7 +637,7 @@
     },
     {
       "semana": "Semana 15",
-      "titulo": "Integración actual: puzzle, agarre, animaciones, HUD e inventario",
+      "titulo": "Integración de sistemas: puzzle, agarre, animaciones, HUD e inventario",
       "preguntas": {
         "que_probar": "Queríamos reunir los sistemas trabajados durante el proyecto en una versión más completa, con interacciones claras y una presentación coherente.",
         "que_implementamos": "El equipo confirmó para esta semana el cierre del Puzzle 1, el agarre, las reacciones de trampas, las animaciones del enemigo, la edición del menú, el shader del entorno, las animaciones de jugadores, el HUD, el inventario y la retroalimentación de interacción con objetos.",
@@ -693,19 +699,97 @@
             ]
           }
         ],
-        "que_descubrimos": "La versión actual reúne personajes propios, objetos, enemigos, un primer puzzle y una interfaz más completa. Los cierres de esta semana corresponden a lo reportado por el equipo; el proyecto continúa en desarrollo y todavía requiere comprobar la integración completa en una partida.",
+        "que_descubrimos": "La integración reunió personajes, objetos, enemigos, el primer puzzle y una interfaz más completa. La semana 16 muestra cómo se ven estos sistemas juntos en el mapa jugable.",
         "que_cambiaremos": [
           "Comprobar todas las trampas en partidas compartidas con el equipo.",
           "Validar el ciclo completo: entrar al lobby, elegir personaje, iniciar, resolver el puzzle y llegar juntos a la meta.",
           "Continuar la integración del siguiente puzzle y revisar ajustes de cámara, rendimiento y sincronización.",
-          "Preparar las evidencias de las siguientes entregas y los materiales de la demo y el teaser cuando estén disponibles."
+          "Documentar con capturas el recorrido, los personajes y las interacciones durante una partida."
         ],
-        "estado_general": "Cierre de sistemas reportado por el equipo · Proyecto en desarrollo",
+        "estado_general": "Integración de sistemas confirmada por el equipo",
         "evidencias_texto": "Avances confirmados por el equipo para esta entrega. Las capturas de los personajes ya implementados están en la semana 7; las latas y la botella de vidrio, en la semana 9; y el shampoo, en la semana 10."
+      }
+    },
+    {
+      "semana": "Semana 16",
+      "titulo": "Cierre del devlog: Embolatados en partida",
+      "preguntas": {
+        "que_probar": "Queríamos ver cómo funcionaban juntos los personajes, el escenario, las trampas y la interfaz al recorrer el supermercado durante una partida cooperativa.",
+        "que_implementamos": "Reunimos en el mapa jugable los modelos 3D de los personajes, las trampas y los objetos del supermercado, el inventario y las indicaciones del primer reto. Estas capturas muestran cómo se ven en primera persona y cómo se distinguen los compañeros dentro del escenario.",
+        "areas_implementadas": [
+          {
+            "titulo": "Personajes jugables en el mapa",
+            "descripcion": "Integramos los modelos 3D en la partida. Los contornos de color ayudan a distinguir a los compañeros entre las góndolas y las capturas muestran sus movimientos y reacciones físicas.",
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Semana16/personajes-en-partida.png",
+                "alt": "Dos personajes jugables con contornos verde y magenta se desplazan entre los puestos del supermercado."
+              },
+              {
+                "imagen": "public/iimg/Semana16/personajes-y-objetos.png",
+                "alt": "Un personaje con contorno magenta está de pie junto a varios objetos y otro personaje aparece en el suelo."
+              },
+              {
+                "imagen": "public/iimg/Semana16/reaccion-fisica-jugador.png",
+                "alt": "Un personaje cae hacia atrás junto a unas latas mientras otro se mueve al fondo."
+              }
+            ]
+          },
+          {
+            "titulo": "Recorrido por el supermercado",
+            "descripcion": "El escenario ya se puede recorrer en primera persona. Los pasillos conectan los sectores de puestos y estanterías, con espacios para rodear obstáculos y reagruparse.",
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Semana16/recorrido-entre-gondolas.png",
+                "alt": "Vista en primera persona entre puestos, góndolas y cajas apiladas, con dos objetos guardados en el inventario."
+              },
+              {
+                "imagen": "public/iimg/Semana16/salida-del-pasillo.png",
+                "alt": "Un compañero con contorno verde corre hacia un sector abierto al salir del pasillo."
+              }
+            ]
+          },
+          {
+            "titulo": "Trampas y reacciones físicas",
+            "descripcion": "Las latas caen al pasar cerca y hacen ruido. Una botella de vidrio arrojada sirve para atraer al Vigilante hacia el impacto, mientras que el champú deja un derrame que puede hacerlo resbalar. En las capturas se ven los derrames y las caídas entre los estantes.",
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Semana16/derrame-en-el-pasillo.png",
+                "alt": "Un derrame azul queda sobre las baldosas mientras dos personajes se mueven entre los puestos."
+              },
+              {
+                "imagen": "public/iimg/Semana16/caida-junto-al-derrame.png",
+                "alt": "Una figura adulta aparece en el suelo cerca de un derrame y un personaje jugable sigue al fondo del pasillo."
+              },
+              {
+                "imagen": "public/iimg/Semana16/reaccion-entre-estantes.png",
+                "alt": "Una figura adulta aparece en plena caída entre los estantes, con un personaje de contorno magenta al fondo."
+              }
+            ]
+          },
+          {
+            "titulo": "El reto de las llaves y la interfaz",
+            "descripcion": "El objetivo en pantalla pide coordinar las llaves de las cajas registradoras para que todo el equipo pase a la Zona 2. El HUD muestra la resistencia y los tres espacios del inventario, con un resaltado para el espacio seleccionado.",
+            "evidencias": [
+              {
+                "imagen": "public/iimg/Semana16/objetivo-y-llave.png",
+                "alt": "El HUD indica que el equipo debe coordinar las llaves de la caja registradora. Una llave aparece en el segundo espacio del inventario."
+              },
+              {
+                "imagen": "public/iimg/Semana16/llave-durante-el-recorrido.png",
+                "alt": "La llave permanece visible en el inventario mientras el jugador se asoma desde una esquina del supermercado."
+              }
+            ]
+          }
+        ],
+        "evidencias_texto": "Las diez capturas de partida están agrupadas arriba por tema. Pulsa una imagen para verla a tamaño completo. La vista cenital del mapa está en la semana 13.",
+        "que_descubrimos": "En un mismo recorrido se pueden ver los modelos jugables, las reacciones a las trampas y el objetivo compartido. Los contornos de los personajes y el HUD ayudan a ubicarse y a saber qué lleva cada jugador.",
+        "cierre": "Con esta partida documentada cerramos la bitácora de 16 semanas. El recorrido va desde el primer prototipo de movimiento y sigilo hasta los personajes, las trampas y el reto de las cajas dentro del supermercado jugable."
       }
     }
   ],
-  "demo": "El proyecto continúa en desarrollo. Hasta la semana 15 reúne multijugador, personajes propios, trampas, el primer puzzle, inventario y HUD. Aún no se ha incorporado un enlace de descarga o una demo jugable a este devblog.",
-  "teaser": "El teaser sigue pendiente de incorporarse a la página. Este espacio reunirá el video de presentación del juego cuando esté disponible.",
-  "nota_bitacora": "Sigue la evolución de Embolatados desde la semana 0 hasta la semana actual, la 15: la idea inicial, los primeros prototipos y los avances en personajes, escenarios, trampas y sistemas de juego."
+  "demo": null,
+  "teaser": "Un vistazo a Embolatados en partida.",
+  "teaser_video_id": "aL8WkII40j4",
+  "nota_bitacora": "Las 16 semanas de Embolatados recorren la idea inicial, los primeros prototipos y la integración de personajes, escenarios, trampas y objetivos cooperativos."
 }

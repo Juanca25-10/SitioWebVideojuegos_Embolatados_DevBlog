@@ -324,6 +324,19 @@ img {
     border: var(--border-width) solid var(--border-color);
 }
 
+.teaser-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 16px 0 12px;
+    border: 0;
+}
+
+.teaser-link {
+    color: var(--bg-color);
+    font-weight: bold;
+}
+
 .evidence-hint {
     max-width: 175px;
     font-size: 0.9rem;
